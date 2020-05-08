@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MTProject.Models.CourseCategory>
+
+@{
+    ViewBag.Title = "CourseCategory";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+
+<h2>Manage Course Category</h2>
+<p>
+    @Html.ActionLink("Create New", "CreateCategory")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateAt)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateAt)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditCategory", new { id = item.Id }) |
+                @Html.ActionLink("Details", "DetailsCategory", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteCategory", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

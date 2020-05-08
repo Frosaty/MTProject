@@ -1,0 +1,78 @@
+﻿@model IEnumerable<MTProject.Models.Topic>
+@{
+    ViewBag.Title = "Manage Topics";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+}
+
+<h2>Manage Topics</h2>
+<div class="container">
+    <div class=" row">
+        <div class="col-lg-8">
+            @using (Html.BeginForm("Topics", "Staff", FormMethod.Get))
+            {
+                @Html.TextBox("searching", null, new { @class = "form-control", @placeholder = "Enter something you need" })
+                <button type="submit" class="btn btn-info" style="margin-bottom: 2em; font-size: 16px;">Search <i class="fas fa-search-plus fa-1x"></i></button>
+            }
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <button class="btn btn-success" style=" font-size: 16px;">
+                    @Html.ActionLink("Create New", "CreateTopics")
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TopicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateAt)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="3" style="color: red">
+                Not Found
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TopicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateAt)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditTopics", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "DetailsTopics", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteTopics", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+
+
+
+</table>

@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "ManageStaff";
+}
+
+
+    <div class="row">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h2>ManageStaff</h2>
+            <h1>Welcome user @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Staff")</h1>
+        }
+        <a href="@Url.Action("SignOut","Home")">Logout</a>
+    </div>

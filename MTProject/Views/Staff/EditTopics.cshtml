@@ -53,8 +53,7 @@
 
 @using (Html.BeginForm("Assign", "Staff"))
 {
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.Trainer_Topics)
+    @Html.Hidden("TopicsId", Model.Id)   
     @Html.DropDownList("Trainers")
     <input type="submit" value="Assign" class="btn btn-success" />
 }
@@ -62,7 +61,7 @@
 <table class="table">
     <tr>
         <th>
-            Full Name
+            FullName
         </th>
         <th>
             Phone
@@ -88,35 +87,38 @@
     </tr>
     @foreach (var item in ViewBag.TrainerTable)
     {
-        <tr>
-            <td>
-                @item.TrainerID
-            </td>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @item.Telephone
-            </td>
-            <td>
-                @item.Email
-            </td>
-            <td>
-                @item.Type
-            </td>
-            <td>
-                @item.Education
-            </td>
-            <td>
-                @item.Department
-            </td>
-            <td>
-                @item.Account.Username
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "DeleteTopics", new { trainers = item.TrainerID, topicID = Model.Trainer_Topics }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
+<tr>
+    <td>
+            @item.Trainer.Id
+        </td>
+    <td>
+        @item.Trainer.FullName
+    </td>
+    <td>
+        @item.Trainer.Telephone
+    </td>
+    <td>
+        @item.Trainer.Address
+    </td>
+    <td>
+        @item.Trainer.Email
+    </td>
+    <td>
+        @item.Trainer.Types
+    </td>
+    <td>
+        @item.Trainer.Education
+    </td>
+    <td>
+        @item.Trainer.WorkingPlace
+    </td>
+    <td>
+        @item.Trainer.Account.Id
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "RemoveTrainer", "Staff", new { trainer_topic_id = item.Id }, new { @class = "btn btn-danger" })
+    </td>
+</tr>
     }
 </table>
 

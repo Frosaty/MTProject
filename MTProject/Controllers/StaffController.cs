@@ -152,7 +152,7 @@ namespace MTProject.Controllers
             }
             return View(trainee);
         }
-
+        
         // POST: Trainees/Delete/5
         [HttpPost, ActionName("DeleteTrainee")]
         [ValidateAntiForgeryToken]
@@ -401,7 +401,7 @@ namespace MTProject.Controllers
         }
 
         // GET: Topics/Edit/5
-        public ActionResult EditTopics(int? id)
+        public ActionResult EditTopics(int? id)//Em edit topic nào thì dùng id topic đó
         {
             if (id == null)
             {
@@ -410,7 +410,7 @@ namespace MTProject.Controllers
             Topic topic = db.Topics.Find(id);
 
             ViewBag.Trainers = new SelectList(db.Trainers, "Id", "FullName");
-            ViewBag.TrainerTable = db.Trainer_Topics.Where(t => t.TopicsId == id).Select(t => t.TrainerID).ToList();
+            ViewBag.TrainerTable = db.Trainer_Topics.Where(t => t.TopicsId == id).Include(t => t.Trainer).ToList();
 
             //ViewBag.TrainerTable = db.Trainer_Topics.Where(t => t.Trainer_Topics == id).SelectMany(t => t.Trainers).ToList();
             if (topic == null)
@@ -455,20 +455,26 @@ namespace MTProject.Controllers
 
                 db.Trainer_Topics.Add(trainer_topic);
                 db.SaveChanges();
-                return View();
-            }
 
-            return View();
+               
+            }
+            return RedirectToAction("EditTopics", new{ id = topic.Id});            
+            //Cho nay ve trang edit ma em thieu cai id
+
+            
         }
 
-        public ActionResult DeleteTrainer(int trainers, int topicId, int trainer_topicsc)
+        //H thử đặt trùng tên nè
+        public ActionResult RemoveTrainer(int trainer_topic_id)
         {
-            Trainer trainer = db.Trainers.Find(trainers);
-            Topic topic = db.Topics.Find(topicId);
-            Trainer_Topics trainer_Topics = db.Trainer_Topics.Find(trainer_topicsc);
+            Trainer_Topics trainer_topic = db.Trainer_Topics.Find(trainer_topic_id);
+            //Topic topic = db.Topics.Find(topicId);
+            //Trainer_Topics trainer_Topics = db.Trainer_Topics.Find(trainer_topics);
 
-            trainer.Trainer_Topics.Remove(trainer_Topics);
-            topic.Trainer_Topics.Remove(trainer_Topics);
+            //trainer.Trainer_Topics.Remove(trainer_Topics);
+            //topic.Trainer_Topics.Remove(trainer_Topics);
+            int topicId = trainer_topic.Topic.Id;
+            db.Trainer_Topics.Remove(trainer_topic);
             db.SaveChanges();
 
             return RedirectToAction("EditTopics", "Staff", new { id = topicId });

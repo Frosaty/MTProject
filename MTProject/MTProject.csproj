@@ -130,13 +130,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Cours1Controller.cs" />
     <Compile Include="Controllers\CoursController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\TraineesController.cs" />
-    <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Controllers\TrainersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -242,7 +242,6 @@
       <BrowseToURL>~/Admin/Index</BrowseToURL>
     </Content>
     <Content Include="Views\Staff\Index.cshtml" />
-    <Content Include="Views\Staff\Courses.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
@@ -263,8 +262,8 @@
     <Content Include="Views\Staff\EditTrainee.cshtml" />
     <Content Include="Views\Staff\ManageTrainer.cshtml" />
     <Content Include="Views\Trainer\TrainerProfile.cshtml" />
-    <Content Include="Views\Trainers\Create.cshtml" />
-    <Content Include="Views\Trainers\Delete.cshtml" />
+    <Content Include="Views\Trainer\Create.cshtml" />
+    <Content Include="Views\Trainer\Delete.cshtml" />
     <Content Include="Views\Trainers\Details.cshtml" />
     <Content Include="Views\Trainers\Edit.cshtml" />
     <Content Include="Views\Trainers\Index.cshtml" />
@@ -290,6 +289,17 @@
     <Content Include="Views\Shared\_LayoutTrainee.cshtml" />
     <Content Include="Views\Trainees\Edit.cshtml" />
     <Content Include="Views\Trainees\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutTrainer.cshtml" />
+    <Content Include="Views\Staff\Courses.cshtml" />
+    <Content Include="Views\Cours1\CreateCourse.cshtml" />
+    <Content Include="Views\Cours1\DeleteCourse.cshtml" />
+    <Content Include="Views\Cours1\DetailsCourse.cshtml" />
+    <Content Include="Views\Cours1\EditCourse.cshtml" />
+    <Content Include="Views\Cours1\Index.cshtml" />
+    <Content Include="Views\Staff\CreateCourses.cshtml" />
+    <Content Include="Views\Staff\DeleteCourses.cshtml" />
+    <Content Include="Views\Staff\DetailsCourses.cshtml" />
+    <Content Include="Views\Staff\EditCourses.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

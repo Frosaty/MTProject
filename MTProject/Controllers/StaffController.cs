@@ -512,7 +512,121 @@ namespace MTProject.Controllers
 
         public ActionResult Courses()
         {
+            var courses = db.Courses.Include(c => c.Trainee_Course).Include(c => c.CourseCategory1);
+            return View(courses.ToList());
+        }
+        public ActionResult DetailsCourses(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cours cours = db.Courses.Find(id);
+            if (cours == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cours);
+        }
+
+        // GET: Cours/Create
+        public ActionResult CreateCourse()
+        {
+            ViewBag.CategoryId = new SelectList(db.CourseCategories, "Id", "CategName");
+            //ViewBag.Id = new SelectList(db.Trainee_Course, "Id", "Id");
             return View();
+        }
+
+        // POST: Cours/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCourses([Bind(Include = "CourseName,Description,CreateAt")] Cours cours, int CategoryId)
+        {
+            if (ModelState.IsValid)
+            {
+                CourseCategory category = db.CourseCategories.Find(CategoryId);
+                Cours course = new Cours();
+
+                course.CourseCategory1 = category;
+
+                course.CourseName = cours.CourseName;
+                course.Description = cours.Description;
+                course.CreateAt = cours.CreateAt;
+                course.CategoryId = CategoryId;
+
+                db.Courses.Add(course);
+
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Id = new SelectList(db.CourseCategories, "Id", "CategName", cours.Id);
+            ViewBag.Id = new SelectList(db.Trainee_Course, "Id", "Id", cours.Id);
+            return View(cours);
+        }
+
+        // GET: Cours/Edit/5
+        public ActionResult EditCourse(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cours cours = db.Courses.Find(id);
+            if (cours == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Id = new SelectList(db.CourseCategories, "Id", "CategName", cours.Id);
+            ViewBag.Id = new SelectList(db.Trainee_Course, "Id", "Id", cours.Id);
+            return View(cours);
+        }
+
+        // POST: Cours/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCourses([Bind(Include = "Id,CourseName,Description,CategoryId,CreateAt")] Cours cours)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(cours).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.Id = new SelectList(db.CourseCategories, "Id", "CategName", cours.Id);
+            ViewBag.Id = new SelectList(db.Trainee_Course, "Id", "Id", cours.Id);
+            return View(cours);
+        }
+
+        // GET: Cours/Delete/5
+        public ActionResult DeleteCourses(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cours cours = db.Courses.Find(id);
+            if (cours == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cours);
+        }
+
+        // POST: Cours/Delete/5
+        [HttpPost, ActionName("DeleteCourses")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCoursesConfirmed(int id)
+        {
+            Cours cours = db.Courses.Find(id);
+            db.Courses.Remove(cours);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         /*-----------------------------------Start of CategorCourse----------------------------------------------- */

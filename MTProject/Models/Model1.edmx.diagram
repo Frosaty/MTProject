@@ -4,26 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4ddc634e70d846ab9108ded4e35cf33c" Name="Diagram1">
-        <EntityTypeShape EntityType="Manage_TrainingModel.Account" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+      <Diagram DiagramId="d14a53cd638b422798f385848e4aadf5" Name="Diagram1">
+        <EntityTypeShape EntityType="Manage_TrainingModel.Account" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Manage_TrainingModel.CourseCategory" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manage_TrainingModel.Cours" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manage_TrainingModel.Role" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manage_TrainingModel.Cours" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manage_TrainingModel.Role" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Manage_TrainingModel.Staff" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manage_TrainingModel.Topic" Width="1.5" PointX="8.375" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manage_TrainingModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manage_TrainingModel.Topic" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="Manage_TrainingModel.Trainee" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manage_TrainingModel.Trainee_Course" Width="1.5" PointX="9.125" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manage_TrainingModel.Trainer_Topics" Width="1.5" PointX="6.125" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manage_TrainingModel.Trainer" Width="1.5" PointX="4.125" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manage_TrainingModel.Trainee_Course" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manage_TrainingModel.Trainer_Topics" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manage_TrainingModel.Trainer" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
         <AssociationConnector Association="Manage_TrainingModel.FK_Accounts_Role" ManuallyRouted="false" />
         <AssociationConnector Association="Manage_TrainingModel.FK_Staffs_Accounts" ManuallyRouted="false" />
         <AssociationConnector Association="Manage_TrainingModel.FK_Trainee_Accounts" ManuallyRouted="false" />
         <AssociationConnector Association="Manage_TrainingModel.FK_Trainers_Trainers" ManuallyRouted="false" />
-        <AssociationConnector Association="Manage_TrainingModel.FK_Trainee_Course_Trainee" ManuallyRouted="false" />
+        <AssociationConnector Association="Manage_TrainingModel.FK_Courses_CourseCategories1" ManuallyRouted="false" />
+        <AssociationConnector Association="Manage_TrainingModel.FK_Trainee_Course_Courses" ManuallyRouted="false" />
         <AssociationConnector Association="Manage_TrainingModel.FK_Trainer_Topics_Topics" ManuallyRouted="false" />
         <AssociationConnector Association="Manage_TrainingModel.FK_Trainee_Course_Trainee1" ManuallyRouted="false" />
         <AssociationConnector Association="Manage_TrainingModel.FK_Trainer_Topics_Trainers" ManuallyRouted="false" />
-        <AssociationConnector Association="Manage_TrainingModel.FK_Courses_CourseCategories1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

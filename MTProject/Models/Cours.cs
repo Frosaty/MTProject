@@ -14,13 +14,20 @@ namespace MTProject.Models
     
     public partial class Cours
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cours()
+        {
+            this.Trainee_Course = new HashSet<Trainee_Course>();
+        }
+    
         public int Id { get; set; }
         public string CourseName { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
         public System.DateTime CreateAt { get; set; }
     
-        public virtual Trainee_Course Trainee_Course { get; set; }
-        public virtual CourseCategory CourseCategory1 { get; set; }
+        public virtual CourseCategory CourseCategory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Trainee_Course> Trainee_Course { get; set; }
     }
 }

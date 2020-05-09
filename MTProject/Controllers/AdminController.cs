@@ -12,7 +12,7 @@ namespace MTProject.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+        Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
 
         // GET: Admin
         public ActionResult Index()

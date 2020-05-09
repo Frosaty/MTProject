@@ -8,7 +8,7 @@ namespace MTProject.Controllers
 {
     public class AccountController : Controller
     {
-        Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+        Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
         public ActionResult Login()
         {
             return View();
@@ -17,7 +17,7 @@ namespace MTProject.Controllers
         [HttpPost]
         public ActionResult Login(Account account)
         {
-            Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+            Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
             var dataItem = db.Accounts.Where(x => x.UserName == account.UserName && x.Password == account.Password).ToList();
             if (dataItem.Count() > 0)
             {

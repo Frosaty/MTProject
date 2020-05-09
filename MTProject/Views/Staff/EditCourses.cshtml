@@ -11,12 +11,15 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Cours</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Trainee_Course)
+        @Html.HiddenFor(model => model.CourseCategory)
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.CourseName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -57,9 +60,83 @@
         </div>
     </div>
 }
-
+@using (Html.BeginForm("AssignCourse", "Staff"))
+{
+    @Html.Hidden("CourseId", Model.Id)
+    @Html.DropDownList("Trainee")
+    <input type="submit" value="Assign" class="btn btn-success" />
+}
+<table class="table">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            FullName
+        </th>
+        <th>
+            DoB
+        </th>
+        <th>
+            Education
+        </th>
+        <th>
+            ProLanguage
+        </th>
+        <th>
+            ToeicScore
+        </th>
+        <th>
+            Experience
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Department
+        </th>
+        <th>
+            Function
+        </th>
+    </tr>
+    @foreach (var item in ViewBag.TraineeTable)
+    {
+        <tr>
+            <td>
+                @item.Trainee.Id
+            </td>
+            <td>
+                @item.Trainee.FullName
+            </td>
+            <td>
+                @item.Trainee.DoB
+            </td>
+            <td>
+                @item.Trainee.Education
+            </td>
+            <td>
+                @item.Trainee.ProLanguage
+            </td>
+            <td>
+                @item.Trainee.ToeicScore
+            </td>
+            <td>
+                @item.Trainee.Experience
+            </td>
+            <td>
+                @item.Trainee.Location
+            </td>
+            <td>
+                @item.Trainee.Department
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "RemoveTrainee", "Staff", new { trainee_course_id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Courses")
 </div>
 
 @section Scripts {

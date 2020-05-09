@@ -13,10 +13,10 @@ namespace MTProject.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Manage_TrainingEntities7 : DbContext
+    public partial class Manage_TrainingEntities8 : DbContext
     {
-        public Manage_TrainingEntities7()
-            : base("name=Manage_TrainingEntities7")
+        public Manage_TrainingEntities8()
+            : base("name=Manage_TrainingEntities8")
         {
         }
     
@@ -30,6 +30,7 @@ namespace MTProject.Models
         public virtual DbSet<Cours> Courses { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<Trainee> Trainees { get; set; }
         public virtual DbSet<Trainee_Course> Trainee_Course { get; set; }

@@ -37,19 +37,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Trainee_Course.Id)
+            @Html.DisplayNameFor(model => model.CourseCategory.CategName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Trainee_Course.Id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CourseCategory1.CategName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CourseCategory1.CategName)
+            @Html.DisplayFor(model => model.CourseCategory.CategName)
         </dd>
 
     </dl>
@@ -59,7 +51,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "Courses")
         </div>
     }
 </div>

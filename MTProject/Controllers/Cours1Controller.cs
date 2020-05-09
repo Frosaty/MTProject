@@ -12,12 +12,12 @@ namespace MTProject.Controllers
 {
     public class Cours1Controller : Controller
     {
-        private Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+        private Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
 
         // GET: Cours1
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Trainee_Course).Include(c => c.CourseCategory1);
+            var courses = db.Courses.Include(c => c.Trainee_Course).Include(c => c.CourseCategory);
             return View(courses.ToList());
         }
 

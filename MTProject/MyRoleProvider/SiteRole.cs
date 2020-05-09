@@ -38,7 +38,7 @@ namespace MTProject.MyRoleProvider
 
         public override string[] GetRolesForUser(string username)
         {
-            Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+            Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
             string data = db.Accounts.Where(x => x.UserName == username).SingleOrDefault().Role1.RoleName;
             string[] result = { data };
             return result;

@@ -12,12 +12,12 @@ namespace MTProject.Controllers
 {
     public class CoursController : Controller
     {
-        private Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+        private Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
 
         // GET: Cours
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.CourseCategory1).Include(c => c.Trainee_Course);
+            var courses = db.Courses.Include(c => c.CourseCategory).Include(c => c.Trainee_Course);
             return View(courses.ToList());
         }
 
@@ -56,7 +56,7 @@ namespace MTProject.Controllers
                 CourseCategory category = db.CourseCategories.Find(CategoryId);
                 Cours course = new Cours();
 
-                course.CourseCategory1 = category;
+                course.CourseCategory = category;
 
                 course.CourseName = cours.CourseName;
                 course.Description = cours.Description;

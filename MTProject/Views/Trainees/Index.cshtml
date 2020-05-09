@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MTProject.Models.Trainee>
+﻿@model IEnumerable<MTProject.Models.Trainee_Course>
 
 @{
     ViewBag.Title = "Index";
@@ -7,79 +7,33 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FullName)
+            @Html.DisplayNameFor(model => model.Cours.CourseName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DoB)
+            @Html.DisplayNameFor(model => model.Cours.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Education)
+            @Html.DisplayNameFor(model => model.Cours.CreateAt)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProLanguage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ToeicScore)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Experience)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Department)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Account.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Account.Password)
-        </th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
 <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.FullName)
+        @Html.DisplayFor(modelItem => item.Cours.CourseName)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.DoB)
+        @Html.DisplayFor(modelItem => item.Cours.Description)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Education)
+        @Html.DisplayFor(modelItem => item.Cours.CreateAt)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ProLanguage)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ToeicScore)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Experience)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Location)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Department)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Account.UserName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Account.Password)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "EditTrainee", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "DeleteTrainee", new { id = item.Id })
-    </td>
+
 </tr>
 }

@@ -10,7 +10,7 @@ namespace MTProject.Controllers
 {
     public class ManageController : Controller
     {
-        Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+        Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
         // GET: Manage
         public ActionResult Index()
         {

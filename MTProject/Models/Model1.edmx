@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Manage_TrainingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Manage_TrainingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="Id" />
@@ -50,6 +50,16 @@
           <Property Name="Telephone" Type="varchar" MaxLength="20" />
           <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Topics">
           <Key>
@@ -154,15 +164,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Trainee_Course_Trainee">
-          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
-          <End Role="Trainee_Course" Type="Self.Trainee_Course" Multiplicity="0..1" />
+        <Association Name="FK_Trainee_Course_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="Trainee_Course" Type="Self.Trainee_Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Courses">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Trainee_Course">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -220,6 +230,7 @@
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trainee" EntityType="Self.Trainee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trainee_Course" EntityType="Self.Trainee_Course" Schema="dbo" store:Type="Tables" />
@@ -241,7 +252,7 @@
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Trainee" EntitySet="Trainee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Trainee_Course_Trainee" Association="Self.FK_Trainee_Course_Trainee">
+          <AssociationSet Name="FK_Trainee_Course_Courses" Association="Self.FK_Trainee_Course_Courses">
             <End Role="Courses" EntitySet="Courses" />
             <End Role="Trainee_Course" EntitySet="Trainee_Course" />
           </AssociationSet>
@@ -262,7 +273,8 @@
             <End Role="Trainers" EntitySet="Trainers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Manage_TrainingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -287,7 +299,7 @@
           <Property Name="CategName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreateAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Courses" Relationship="Manage_TrainingModel.FK_Courses_CourseCategories1" FromRole="CourseCategory" ToRole="Cours" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_Courses_CourseCategories1" FromRole="CourseCategories" ToRole="Courses" />
         </EntityType>
         <EntityType Name="Cours">
           <Key>
@@ -298,8 +310,8 @@
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="CreateAt" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Trainee_Course" Relationship="Self.FK_Trainee_Course_Trainee" FromRole="Courses" ToRole="Trainee_Course" />
-          <NavigationProperty Name="CourseCategory1" Relationship="Manage_TrainingModel.FK_Courses_CourseCategories1" FromRole="Cours" ToRole="CourseCategory" />
+          <NavigationProperty Name="CourseCategory" Relationship="Self.FK_Courses_CourseCategories1" FromRole="Courses" ToRole="CourseCategories" />
+          <NavigationProperty Name="Trainee_Course" Relationship="Self.FK_Trainee_Course_Courses" FromRole="Courses" ToRole="Trainee_Course" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -320,6 +332,16 @@
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Staffs_Accounts" FromRole="Staffs" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Topic">
           <Key>
@@ -356,7 +378,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TraineeId" Type="Int32" />
           <Property Name="CourseId" Type="Int32" />
-          <NavigationProperty Name="Cours" Relationship="Self.FK_Trainee_Course_Trainee" FromRole="Trainee_Course" ToRole="Courses" />
+          <NavigationProperty Name="Cours" Relationship="Self.FK_Trainee_Course_Courses" FromRole="Trainee_Course" ToRole="Courses" />
           <NavigationProperty Name="Trainee" Relationship="Self.FK_Trainee_Course_Trainee1" FromRole="Trainee_Course" ToRole="Trainee" />
         </EntityType>
         <EntityType Name="Trainer_Topics">
@@ -433,15 +455,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Trainee_Course_Trainee">
-          <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
-          <End Role="Trainee_Course" Type="Self.Trainee_Course" Multiplicity="0..1" />
+        <Association Name="FK_Courses_CourseCategories1">
+          <End Role="CourseCategories" Type="Self.CourseCategory" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseCategories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainee_Course_Courses">
+          <End Role="Courses" Type="Self.Cours" Multiplicity="0..1" />
+          <End Role="Trainee_Course" Type="Self.Trainee_Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Courses">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Trainee_Course">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="CourseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -481,12 +515,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Manage_TrainingEntities7" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Manage_TrainingEntities8" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="CourseCategories" EntityType="Self.CourseCategory" />
           <EntitySet Name="Courses" EntityType="Self.Cours" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Topics" EntityType="Self.Topic" />
           <EntitySet Name="Trainees" EntityType="Self.Trainee" />
           <EntitySet Name="Trainee_Course" EntityType="Self.Trainee_Course" />
@@ -508,7 +543,11 @@
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Trainers" EntitySet="Trainers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Trainee_Course_Trainee" Association="Self.FK_Trainee_Course_Trainee">
+          <AssociationSet Name="FK_Courses_CourseCategories1" Association="Self.FK_Courses_CourseCategories1">
+            <End Role="CourseCategories" EntitySet="CourseCategories" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainee_Course_Courses" Association="Self.FK_Trainee_Course_Courses">
             <End Role="Courses" EntitySet="Courses" />
             <End Role="Trainee_Course" EntitySet="Trainee_Course" />
           </AssociationSet>
@@ -524,29 +563,13 @@
             <End Role="Trainers" EntitySet="Trainers" />
             <End Role="Trainer_Topics" EntitySet="Trainer_Topics" />
           </AssociationSet>
-          <AssociationSet Name="FK_Courses_CourseCategories1" Association="Manage_TrainingModel.FK_Courses_CourseCategories1">
-            <End Role="CourseCategory" EntitySet="CourseCategories" />
-            <End Role="Cours" EntitySet="Courses" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Courses_CourseCategories1">
-          <End Type="Manage_TrainingModel.CourseCategory" Role="CourseCategory" Multiplicity="1" />
-          <End Type="Manage_TrainingModel.Cours" Role="Cours" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CourseCategory">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Cours">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Manage_TrainingModelStoreContainer" CdmEntityContainer="Manage_TrainingEntities7">
+        <EntityContainerMapping StorageEntityContainer="Manage_TrainingModelStoreContainer" CdmEntityContainer="Manage_TrainingEntities8">
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="Manage_TrainingModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
@@ -595,6 +618,17 @@
                 <ScalarProperty Name="Telephone" ColumnName="Telephone" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Manage_TrainingModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

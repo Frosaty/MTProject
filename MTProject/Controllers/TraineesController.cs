@@ -12,13 +12,15 @@ namespace MTProject.Controllers
 {
     public class TraineesController : Controller
     {
-        private Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+        private Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
 
         // GET: Trainees
         public ActionResult Index()
         {
-            var trainees = db.Trainees.Include(t => t.Account);
-            return View(trainees.ToList());
+            int id = Convert.ToInt32(Session["LoginID"]);
+            Trainee trainee = db.Trainees.Where(t => t.Account.Id == id).FirstOrDefault();
+            ICollection<Trainee_Course> cours = db.Trainee_Course.Where(t => t.TraineeId == trainee.Id).Include(t => t.Cours).ToList();
+            return View(cours);
         }
 
         // GET: Trainees/Edit/5

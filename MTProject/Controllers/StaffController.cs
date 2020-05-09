@@ -14,7 +14,7 @@ namespace MTProject.Controllers
     [Authorize]
     public class StaffController : Controller
     {
-        private Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+        private Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
         // GET: Staff
         public ActionResult Index()
         {
@@ -286,8 +286,6 @@ namespace MTProject.Controllers
         }
 
         // POST: Trainers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditTrainer([Bind(Include = "Id,Account,FullName,Telephone,Address,Email,Types,Education,WorkingPlace,AccountId")] Trainer trainer)
@@ -321,17 +319,7 @@ namespace MTProject.Controllers
         // POST: Trainers/Delete/5
         [HttpPost, ActionName("DeleteTrainer")]
         [ValidateAntiForgeryToken]
-        //public ActionResult Assign (int TopicsId, int Trainers)
-        //{
-        //    Trainer trainer = db.Trainers.Find(Trainers);
-        //    Topic topic = db.Topics.Find(TopicsId);
-        //    if (Trainers != null)
-        //    {
-        //        trainer.Trainer_Topics.Add(trainer);
-        //        topic.
-        //    }
-        //}
-        //public ActionResult DeleteConfirmedTrainer(int trainers, int TopicsId)
+
         public ActionResult DeleteConfirmedTrainer(int trainers)
         {
             Trainer trainer = db.Trainers.Find(trainers);
@@ -401,7 +389,7 @@ namespace MTProject.Controllers
         }
 
         // GET: Topics/Edit/5
-        public ActionResult EditTopics(int? id)//Em edit topic nào thì dùng id topic đó
+        public ActionResult EditTopics(int? id)
         {
             if (id == null)
             {
@@ -411,7 +399,6 @@ namespace MTProject.Controllers
 
             ViewBag.Trainers = new SelectList(db.Trainers, "Id", "FullName");
             ViewBag.TrainerTable = db.Trainer_Topics.Where(t => t.TopicsId == id).Include(t => t.Trainer).ToList();
-
             //ViewBag.TrainerTable = db.Trainer_Topics.Where(t => t.Trainer_Topics == id).SelectMany(t => t.Trainers).ToList();
             if (topic == null)
             {
@@ -443,11 +430,8 @@ namespace MTProject.Controllers
 
             if (trainers != null)
             {
-                //neu nhiêu nhiều là vậy
                 //trainers.Topics.Add(topic);
                 //topic.Trainers.Add(trainer);
-                //mà giờ em có cái class Trainer_Topics rồi thì không dùng cách này được 
-
                 Trainer_Topics trainer_topic = new Trainer_Topics();
 
                 trainer_topic.Topic = topic;
@@ -455,31 +439,18 @@ namespace MTProject.Controllers
 
                 db.Trainer_Topics.Add(trainer_topic);
                 db.SaveChanges();
-
-               
             }
             return RedirectToAction("EditTopics", new{ id = topic.Id});            
-            //Cho nay ve trang edit ma em thieu cai id
-
-            
         }
-
-        //H thử đặt trùng tên nè
+        //ASSIGN DELETE
         public ActionResult RemoveTrainer(int trainer_topic_id)
         {
             Trainer_Topics trainer_topic = db.Trainer_Topics.Find(trainer_topic_id);
-            //Topic topic = db.Topics.Find(topicId);
-            //Trainer_Topics trainer_Topics = db.Trainer_Topics.Find(trainer_topics);
-
-            //trainer.Trainer_Topics.Remove(trainer_Topics);
-            //topic.Trainer_Topics.Remove(trainer_Topics);
             int topicId = trainer_topic.Topic.Id;
             db.Trainer_Topics.Remove(trainer_topic);
             db.SaveChanges();
 
             return RedirectToAction("EditTopics", "Staff", new { id = topicId });
-
-
         }
 
         // GET: Topics/Delete/5
@@ -512,7 +483,7 @@ namespace MTProject.Controllers
 
         public ActionResult Courses()
         {
-            var courses = db.Courses.Include(c => c.Trainee_Course).Include(c => c.CourseCategory1);
+            var courses = db.Courses.Include(c => c.Trainee_Course).Include(c => c.CourseCategory);
             return View(courses.ToList());
         }
         public ActionResult DetailsCourses(int? id)
@@ -530,16 +501,17 @@ namespace MTProject.Controllers
         }
 
         // GET: Cours/Create
-        public ActionResult CreateCourse()
+        public ActionResult CreateCourses()
         {
+            Cours cours = new Cours();
+            cours.CreateAt = System.DateTime.Now;
+            //return View();
             ViewBag.CategoryId = new SelectList(db.CourseCategories, "Id", "CategName");
             //ViewBag.Id = new SelectList(db.Trainee_Course, "Id", "Id");
-            return View();
+            return View(cours);
         }
 
         // POST: Cours/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateCourses([Bind(Include = "CourseName,Description,CreateAt")] Cours cours, int CategoryId)
@@ -549,7 +521,7 @@ namespace MTProject.Controllers
                 CourseCategory category = db.CourseCategories.Find(CategoryId);
                 Cours course = new Cours();
 
-                course.CourseCategory1 = category;
+                course.CourseCategory = category;
 
                 course.CourseName = cours.CourseName;
                 course.Description = cours.Description;
@@ -558,9 +530,8 @@ namespace MTProject.Controllers
 
                 db.Courses.Add(course);
 
-
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Courses");
             }
 
             ViewBag.Id = new SelectList(db.CourseCategories, "Id", "CategName", cours.Id);
@@ -569,40 +540,73 @@ namespace MTProject.Controllers
         }
 
         // GET: Cours/Edit/5
-        public ActionResult EditCourse(int? id)
+        public ActionResult EditCourses(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Cours cours = db.Courses.Find(id);
+ 
+            ViewBag.CategoryId = new SelectList(db.CourseCategories, "Id", "CategName", cours.CategoryId);
+
+            ViewBag.Trainee = new SelectList(db.Trainees, "Id", "FullName");
+            ViewBag.TraineeTable = db.Trainee_Course.Where(t => t.CourseId == id).Include(t => t.Trainee).ToList();
+
             if (cours == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.CourseCategories, "Id", "CategName", cours.Id);
-            ViewBag.Id = new SelectList(db.Trainee_Course, "Id", "Id", cours.Id);
             return View(cours);
         }
 
         // POST: Cours/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditCourses([Bind(Include = "Id,CourseName,Description,CategoryId,CreateAt")] Cours cours)
+        public ActionResult EditCourses([Bind(Include = "Id,CategoryId,CourseName,Description,CreateAt")] Cours cours)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(cours).State = EntityState.Modified;
+                //db.Entry(cours.CategoryId).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Courses");
             }
             ViewBag.Id = new SelectList(db.CourseCategories, "Id", "CategName", cours.Id);
-            ViewBag.Id = new SelectList(db.Trainee_Course, "Id", "Id", cours.Id);
+            //ViewBag.Id = new SelectList(db.Trainee_Course, "Id", "Id", cours.Id);
             return View(cours);
         }
+        //Assign
+        public ActionResult AssignCourse(int CourseId, int Trainee)
+        {
+            Trainee trainee = db.Trainees.Find(Trainee);
+            Cours course = db.Courses.Find(CourseId);
 
+            if (trainee != null)
+            {
+                //trainers.Topics.Add(topic);
+                //topic.Trainers.Add(trainer);
+                Trainee_Course trainee_Course = new Trainee_Course();
+
+                trainee_Course.Cours = course;
+                trainee_Course.Trainee = trainee;
+                
+                
+                db.Trainee_Course.Add(trainee_Course);
+                db.SaveChanges();
+            }
+            return RedirectToAction("EditCourses", new { id = course.Id });
+        }
+        //DELETE ASSIGN
+        public ActionResult RemoveTrainee(int trainee_course_id)
+        {
+            Trainee_Course trainee_Course = db.Trainee_Course.Find(trainee_course_id);
+            int courseId = trainee_Course.Cours.Id;
+            db.Trainee_Course.Remove(trainee_Course);
+            db.SaveChanges();
+
+            return RedirectToAction("EditCourses", "Staff", new { id = courseId });
+        }
         // GET: Cours/Delete/5
         public ActionResult DeleteCourses(int? id)
         {
@@ -658,8 +662,6 @@ namespace MTProject.Controllers
         }
 
         // POST: CourseCategories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateCategory([Bind(Include = "Id,CategName,Description,CreateAt")] CourseCategory courseCategory)

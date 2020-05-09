@@ -12,7 +12,7 @@ namespace MTProject.Controllers
 {
     public class RolesController : Controller
     {
-        private Manage_TrainingEntities7 db = new Manage_TrainingEntities7();
+        private Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
 
         // GET: Roles
         public ActionResult Index()

@@ -6,82 +6,87 @@
 }
 
 <h2>Manage Trainee</h2>
+<button class="btn btn-success">
+        @Html.ActionLink("Create New", "CreateTrainee")
+    <i class="fas fa-plus-circle" aria-hidden="true"></i>
+</button>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Education)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToeicScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Experience)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account.Password)
+            </th>
+            <th></th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "CreateTrainee")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DoB)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Education)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProLanguage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ToeicScore)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Experience)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Department)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Account.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Account.Password)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Education)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProLanguage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToeicScore)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Experience)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.Password)
+                </td>
+                <td>
+                    <button class="btn btn-danger">
+                        @Html.ActionLink("Edit", "EditTrainee", new { id = item.Id })
+                    </button>|
+                    <button class="btn btn-warning">
+                        @Html.ActionLink("Delete", "DeleteTrainee", new { id = item.Id })
+                    </button>
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.FullName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DoB)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Education)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ProLanguage)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ToeicScore)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Experience)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Location)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Department)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Account.UserName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Account.Password)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "EditTrainee", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "DeleteTrainee", new { id = item.Id })
-    </td>
-</tr>
-}
-
-</table>
+    </table>

@@ -3,32 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My MTProject Application</title>
+    <link rel="shortcut icon"
+          href="https://www.gstatic.com/devrel-devsite/prod/vc8928e4803ba00823d2deb39c327db4919db629f1ecb648b587b35b95297bc3b/developers/images/favicon.png">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/StyleAdmin.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/8aa30f2773.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
- 
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("MTProject", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Admin Home", "Index", "Admin")</li>*@
-                    <li>@Html.ActionLink("ManageAccount", "ManageAccount", "Admin")</li>
-                    <li>@Html.ActionLink("SignOut", "SignOut", "Account")</li>
-                </ul>
-            </div>
+    <header>
+        <a href="#" class="logo">
+        </a>
+        <div>
+            <button class="header__button nav-btn-js" type="button"></button>
+            <nav class="header__nav nav-js" data-active="false">
+                <a href="#" class="logo logo--white">
+                    
+                </a>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <ul class="header__menu">
+                            <li>@Html.ActionLink("ManageAccount", "ManageAccount", "Admin", null, new { @class = "styleadmins" })</li>
+                            <li>@Html.ActionLink("SignOut", "SignOut", "Account", null, new { @class = "styleadmins" })</li>
+                        </ul>
+                        </ul>
+                </div>
+                
+            </nav>
         </div>
-    </div>
+    </header>
+
+    
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -40,5 +47,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Content/JavaScriptAdmin.js"></script>
 </body>
 </html>

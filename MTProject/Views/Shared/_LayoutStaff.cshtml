@@ -3,35 +3,43 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My MTProject Application</title>
+    <link rel="shortcut icon"
+          href="https://www.gstatic.com/devrel-devsite/prod/vc8928e4803ba00823d2deb39c327db4919db629f1ecb648b587b35b95297bc3b/developers/images/favicon.png">
     @Styles.Render("~/Content/css")
+    <link href="~/Content/StyleTrainer.css" rel="stylesheet" />
+    <link href="~/Content/StylesStaff.css" rel="stylesheet" />
+    <link href="~/Content/StyleAdmin.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://kit.fontawesome.com/8aa30f2773.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Staff Home", "Index", "Staff")</li>
-                    <li>@Html.ActionLink("Manage Trainee", "ManageTrainee", "Staff")</li>
-                    <li>@Html.ActionLink("Manage Trainer", "ManageTrainer", "Staff")</li>
-                    <li>@Html.ActionLink("Topics", "Topics", "Staff")</li>
-                    <li>@Html.ActionLink("Courses", "Courses", "Staff")</li>
-                    <li>@Html.ActionLink("Courses Category", "CoursesCategory", "Staff")</li>
-                    <li>@Html.ActionLink("SignOut", "SignOut", "Account")</li>
-                </ul>
-            </div>
+    <header>
+        <a href="#" class="logo">
+        </a>
+        <div>
+            <button class="header__button nav-btn-js" type="button"></button>
+            <nav class="header__nav nav-js" data-active="false">
+                <a href="#" class="logo logo--white">
+
+                </a>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <ul class="header__menu">
+                            <li>@Html.ActionLink("Staff Home", "Index", "Staff", null, new { @class = "styleadmins" })</li>
+                            <li>@Html.ActionLink("Manage Trainee", "ManageTrainee", "Staff", null, new { @class = "styleadmins" })</li>
+                            <li>@Html.ActionLink("Manage Trainer", "ManageTrainer", "Staff", null, new { @class = "styleadmins" })</li>
+                            <li>@Html.ActionLink("Topics", "Topics", "Staff", null, new { @class = "styleadmins" })</li>
+                            <li>@Html.ActionLink("Courses", "Courses", "Staff", null, new { @class = "styleadmins" })</li>
+                            <li>@Html.ActionLink("Courses Category", "CoursesCategory", "Staff", null, new { @class = "styleadmins" })</li>
+                            <li>@Html.ActionLink("SignOut", "SignOut", "Account", null, new { @class = "styleadmins" })</li>
+                        </ul>
+                    </ul>
+                </div>
+
+            </nav>
         </div>
-    </div>
+    </header>
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -43,6 +51,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Content/JavaScriptAdmin.js"></script>
 </body>
-<p>@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name: "Guest")</p>
+@*<p>@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name: "Guest")</p>*@
 </html>

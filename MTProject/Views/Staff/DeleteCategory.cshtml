@@ -37,11 +37,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cours.CourseName)
+            Course
+           
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Cours.CourseName)
+            @foreach (var course in Model.Courses)
+            {
+                string str_c = course.CourseName + "\n";
+                @str_c;
+            }
+
         </dd>
 
     </dl>

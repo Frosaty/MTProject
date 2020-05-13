@@ -11,6 +11,7 @@ namespace MTProject.Controllers
         Manage_TrainingEntities8 db = new Manage_TrainingEntities8();
         public ActionResult Login()
         {
+
             return View();
             ViewBag.Message = "";
         }

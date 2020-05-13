@@ -17,15 +17,19 @@ namespace MTProject.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            //var account = db.Accounts.Where(a => a.UserName != accounts.UserName).Include(a => a.Role1);
             var accounts = db.Accounts.Include(a => a.Role1);
-            //return View(accounts.ToList());
+            //return View(accounts.ToList());``
             return View();
         }
 
         //get account
         public ActionResult ManageAccount()
         {
-            return View(db.Accounts.ToList());
+            int id = Convert.ToInt32(Session["LoginID"].ToString());
+            var account = db.Accounts.Where(a => a.Id != id).Include(a => a.Role1);
+            //return View(db.Accounts.ToList());
+            return View(account);
         }
         // GET: Accounts
 
@@ -76,7 +80,7 @@ namespace MTProject.Controllers
             {
                 db.Accounts.Add(account);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ManageAccount");
             }
 
             ViewBag.Id = new SelectList(db.Accounts, "Id", "UserName", account.Id);
@@ -114,7 +118,7 @@ namespace MTProject.Controllers
             {
                 db.Entry(account).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ManageAccount");
             }
             ViewBag.Id = new SelectList(db.Accounts, "Id", "UserName", account.Id);
             ViewBag.Id = new SelectList(db.Accounts, "Id", "UserName", account.Id);
@@ -145,7 +149,7 @@ namespace MTProject.Controllers
             Account account = db.Accounts.Find(id);
             db.Accounts.Remove(account);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ManageAccount");
         }
 
         protected override void Dispose(bool disposing)

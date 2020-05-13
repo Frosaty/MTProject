@@ -1,0 +1,19 @@
+﻿body {
+
+}
+.navbar-inverse {
+    background-color: #D92B5A !important;
+    border-color: #fff !important;
+}
+    .navbar-inverse .navbar-brand {
+        color: #fff !important;
+    }
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff !important;
+    }
+
+.svg-staff {
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

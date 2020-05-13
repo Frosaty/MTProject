@@ -4,8 +4,10 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <h1>Manage Accounts</h1>
-<p>
+<button class="btn btn-success">
     @Html.ActionLink("Create New", "Create")
+</button>
+
 </p>
 <table class="table">
     <tr>
@@ -35,11 +37,17 @@
                 @Html.DisplayFor(modelItem => item.Role1.RoleName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) 
+                    |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    
+</td>
         </tr>
     }
 
 </table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -89,7 +89,7 @@ namespace MTProject.Controllers
             {
                 db.Trainees.Add(trainee);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ManageTrainee");
             }
 
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "UserName", trainee.AccountId);
@@ -125,14 +125,15 @@ namespace MTProject.Controllers
         //UserName, Password,
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditTrainee([Bind(Include = "Id,Account,AccountId,FullName,DoB,Education,ProLanguage,ToeicScore,Experience,Location,Department")] Trainee trainee)
+        public ActionResult EditTrainee([Bind(Include = "Id,Role1,Account,AccountId,FullName,DoB,Education,ProLanguage,ToeicScore,Experience,Location,Department")] Trainee trainee)
         {
+            trainee.Account.Role = 4;
             if (ModelState.IsValid)
             {
                 db.Entry(trainee).State = EntityState.Modified;
                 db.Entry(trainee.Account).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ManageTrainee");
             }
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "UserName", trainee.AccountId);
             return View(trainee);
@@ -160,10 +161,14 @@ namespace MTProject.Controllers
         {
             Trainee trainee = db.Trainees.Find(id);
             Account account = db.Accounts.Find(trainee.Account.Id);
+            ICollection<Trainee_Course> trainee_course = db.Trainee_Course.Where(j => j.TraineeId == id).ToList();
+
+            db.Trainee_Course.RemoveRange(trainee_course);
+
             db.Accounts.Remove(account);
             db.Trainees.Remove(trainee);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ManageTrainee");
         }
 
         //protected override void Dispose(bool disposing)
@@ -255,7 +260,7 @@ namespace MTProject.Controllers
             {
                 db.Trainers.Add(trainer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ManageTrainer");
             }
 
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "UserName", trainer.AccountId);
@@ -288,8 +293,9 @@ namespace MTProject.Controllers
         // POST: Trainers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditTrainer([Bind(Include = "Id,Account,FullName,Telephone,Address,Email,Types,Education,WorkingPlace,AccountId")] Trainer trainer)
+        public ActionResult EditTrainer([Bind(Include = "Id,Role1,Account,FullName,Telephone,Address,Email,Types,Education,WorkingPlace,AccountId")] Trainer trainer)
         {
+            trainer.Account.Role = 3;
             if (ModelState.IsValid)
             {
                 db.Entry(trainer).State = EntityState.Modified;
@@ -320,9 +326,9 @@ namespace MTProject.Controllers
         [HttpPost, ActionName("DeleteTrainer")]
         [ValidateAntiForgeryToken]
 
-        public ActionResult DeleteConfirmedTrainer(int trainers)
+        public ActionResult DeleteConfirmedTrainer(int id)
         {
-            Trainer trainer = db.Trainers.Find(trainers);
+            Trainer trainer = db.Trainers.Find(id);
             Account account = db.Accounts.Find(trainer.Account.Id);
             //Topic topic = db.Topics.Find(TopicsId);
 
@@ -330,7 +336,7 @@ namespace MTProject.Controllers
             db.Accounts.Remove(account);
             db.Trainers.Remove(trainer);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ManageTrainer");
         }
         protected override void Dispose(bool disposing)
         {

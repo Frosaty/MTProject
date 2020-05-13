@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Manage_TrainingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Manage_TrainingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="Id" />
@@ -129,7 +129,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Courses_CourseCategories1">
-          <End Role="CourseCategories" Type="Self.CourseCategories" Multiplicity="1" />
+          <End Role="CourseCategories" Type="Self.CourseCategories" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CourseCategories">
@@ -141,7 +143,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Staffs_Accounts">
-          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Staffs" Type="Self.Staffs" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Accounts">
@@ -153,7 +157,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Trainee_Accounts">
-          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Trainee" Type="Self.Trainee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Accounts">
@@ -165,7 +171,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Trainee_Course_Courses">
-          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Trainee_Course" Type="Self.Trainee_Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Courses">
@@ -177,7 +185,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Trainee_Course_Trainee1">
-          <End Role="Trainee" Type="Self.Trainee" Multiplicity="0..1" />
+          <End Role="Trainee" Type="Self.Trainee" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Trainee_Course" Type="Self.Trainee_Course" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Trainee">
@@ -201,7 +211,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Trainer_Topics_Trainers">
-          <End Role="Trainers" Type="Self.Trainers" Multiplicity="0..1" />
+          <End Role="Trainers" Type="Self.Trainers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Trainer_Topics" Type="Self.Trainer_Topics" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Trainers">
@@ -213,7 +225,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Trainers_Trainers">
-          <End Role="Accounts" Type="Self.Accounts" Multiplicity="0..1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Trainers" Type="Self.Trainers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Accounts">
@@ -273,8 +287,7 @@
             <End Role="Trainers" EntitySet="Trainers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Manage_TrainingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">

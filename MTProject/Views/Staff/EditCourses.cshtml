@@ -63,82 +63,86 @@
 @using (Html.BeginForm("AssignCourse", "Staff"))
 {
     @Html.Hidden("CourseId", Model.Id)
-    @Html.DropDownList("Trainee")
-    <input type="submit" value="Assign" class="btn btn-success" />
+    <div class="form-group">
+        <div class="form-inline">
+            @Html.DropDownList("Trainee", null, new { @class = "form-control" })
+            <input type="submit" value="Assign" class="btn btn-success" />
+        </div>
+    </div>
 }
-<table class="table">
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            FullName
-        </th>
-        <th>
-            DoB
-        </th>
-        <th>
-            Education
-        </th>
-        <th>
-            ProLanguage
-        </th>
-        <th>
-            ToeicScore
-        </th>
-        <th>
-            Experience
-        </th>
-        <th>
-            Location
-        </th>
-        <th>
-            Department
-        </th>
-        <th>
-            Function
-        </th>
-    </tr>
-    @foreach (var item in ViewBag.TraineeTable)
-    {
-        <tr>
-            <td>
-                @item.Trainee.Id
-            </td>
-            <td>
-                @item.Trainee.FullName
-            </td>
-            <td>
-                @item.Trainee.DoB
-            </td>
-            <td>
-                @item.Trainee.Education
-            </td>
-            <td>
-                @item.Trainee.ProLanguage
-            </td>
-            <td>
-                @item.Trainee.ToeicScore
-            </td>
-            <td>
-                @item.Trainee.Experience
-            </td>
-            <td>
-                @item.Trainee.Location
-            </td>
-            <td>
-                @item.Trainee.Department
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "RemoveTrainee", "Staff", new { trainee_course_id = item.Id }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
-    }
-</table>
-<div>
-    @Html.ActionLink("Back to List", "Courses")
-</div>
+            <table class="table">
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        FullName
+                    </th>
+                    <th>
+                        DoB
+                    </th>
+                    <th>
+                        Education
+                    </th>
+                    <th>
+                        ProLanguage
+                    </th>
+                    <th>
+                        ToeicScore
+                    </th>
+                    <th>
+                        Experience
+                    </th>
+                    <th>
+                        Location
+                    </th>
+                    <th>
+                        Department
+                    </th>
+                    <th>
+                        Function
+                    </th>
+                </tr>
+                @foreach (var item in ViewBag.TraineeTable)
+                {
+                    <tr>
+                        <td>
+                            @item.Trainee.Id
+                        </td>
+                        <td>
+                            @item.Trainee.FullName
+                        </td>
+                        <td>
+                            @item.Trainee.DoB
+                        </td>
+                        <td>
+                            @item.Trainee.Education
+                        </td>
+                        <td>
+                            @item.Trainee.ProLanguage
+                        </td>
+                        <td>
+                            @item.Trainee.ToeicScore
+                        </td>
+                        <td>
+                            @item.Trainee.Experience
+                        </td>
+                        <td>
+                            @item.Trainee.Location
+                        </td>
+                        <td>
+                            @item.Trainee.Department
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "RemoveTrainee", "Staff", new { trainee_course_id = item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div>
+                @Html.ActionLink("Back to List", "Courses")
+            </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
